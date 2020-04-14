@@ -18,6 +18,8 @@ title('Vergrößerter Ausschnitt'); %Titel des Fensters
 xlabel('Pixel'); %Horizontale Achse Beschriftung
 ylabel('Pixel'); %Vertikale Achse Beschriftung
 
+%Der Prozess ist im Endeffekt ein Gauß-Filter
+%(https://de.wikipedia.org/wiki/Gauß-Filter), der das Bild weichzeichnet
 imBig = filter([0.2 0.2 0.2 0.2 0.2], 1, imBig); %Bild filtern
 imBig = imrotate(imBig, 90); %Bild drehen
 imBig = filter([0.2 0.2 0.2 0.2 0.2], 1, imBig); %Bild filtern
