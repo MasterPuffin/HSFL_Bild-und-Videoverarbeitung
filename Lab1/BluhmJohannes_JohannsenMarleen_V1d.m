@@ -1,13 +1,13 @@
 %Johannes Bluhm und Marleen Johannsen, 13.04.2020, Laboraufgabe 1, Version 1
-%1. Matrizenverarbeitung: Verkleinern des Bildes cameraman.tif
+%1. Matrizenverarbeitung: Erstellen und speichern eines Bildes
 
 clc; %Kommandofenster bereinigen
 clear; %Variablen bereinigen
 close all; %alles schließen
 
 A = zeros(256,256); %Leere Matrix erstellen
-w = 20; %Rechteck Breite
-h = 100; %Rechteck Höhe
+h = 20; %Rechteck H�he
+w = 100; %Rechteck Breite
 A(256/2-h/2:256/2+h/2,256/2-w/2:256/2+w/2,:) = 0.5; %Rechteck in Matrix platzieren
 
 figure(1); %Ein neues Fenster öffnen

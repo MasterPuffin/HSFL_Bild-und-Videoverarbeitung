@@ -31,7 +31,7 @@ img(end-9:end, 1:10) %10 Werte untere linke Ecke ins Command Window
 imgbw(end-9:end, 1:10) %10 Werte untere linke Ecke ins Command Window sw Bild
 
 figure(3); %Drittes Fenster öffnen
-imshow(imgbw(end-9:end, 1:10)); %Ausgabe der unteren linken Ecke
+imshow(imgbw(end-9:end, 1:10),'InitialMagnification', 'fit'); %Ausgabe der unteren linken Ecke
 axis on; %Achsen einblenden
 title('Untere linke Ecke cameraman.tif in SW'); %Titel des Fensters
 xlabel('Pixel'); %Horizontale Achse Beschriftung

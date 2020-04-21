@@ -19,10 +19,7 @@ imgsm = img(1:4:end,1:4:end);  %Jedes vierte Pixel übernehmen in Zeilen und Spal
 %Von Zeile 1 bis zur letzten Zeile in vierer Schritten usw.
 
 figure(2); %Zweites Fenster öffnen
-imshow(imgsm); %Anzeigen des verkleinerten Bildes
-
-%____WHY the fuck does that NOT WORK??? Zeigt immer diesen Title beim ersten
-%Figure und bei diesem hier gar keinen??____
+imshow(imgsm,'InitialMagnification','fit'); %Anzeigen des verkleinerten Bildes
 
 axis on;
 title('cameraman.tif verkleinert um Faktor 4'); %Titel des Fensters
