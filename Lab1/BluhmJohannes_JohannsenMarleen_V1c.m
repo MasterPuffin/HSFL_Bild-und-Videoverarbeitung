@@ -12,7 +12,7 @@ axis on; %Achsen sichtbar machen
 title('Eingelesenes Bild'); %Titel des Fensters
 
 img = double(img)/255; %Matrix in double konvertieren
-imSmall = img(50:50+35, 100:100+32); %Ausschnitt aus Bild wählen
+imSmall = img(50:50+32, 100:100+32); %Ausschnitt aus Bild wählen
 figure(2); %Ein neues Fenster öffnen
 imshow(imSmall); %Anzeigen des ausgeschnittenen Bildes
 axis on; %Achsen sichtbar machen
