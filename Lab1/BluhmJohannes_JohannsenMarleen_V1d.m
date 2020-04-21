@@ -16,4 +16,4 @@ axis on; %Achsen sichtbar machen
 title('BW-Intensity Bild'); %Titel des Fensters
 xlabel('Pixel'); %Horizontale Achse Beschriftung
 ylabel('Pixel'); %Vertikale Achse Beschriftung
-imwrite(A, 'export.png'); %Bild in Datei speichern
+imwrite(A, 'export.jpeg'); %Bild in Datei speichern
