@@ -40,4 +40,4 @@ for u=1:frames
 end
 close(writerObj); %Video writer schlieﬂen
 implay('whitehouse.avi'); %Video abspielen
-disp("Pixel in Video: "+pixelCount); %Pixelcount ausgeben
+disp("Pixel im Video: "+pixelCount); %Pixelcount ausgeben
