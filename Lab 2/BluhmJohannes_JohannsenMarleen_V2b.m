@@ -35,16 +35,18 @@ title('cameraman.tif Differenzbild'); %Titel des Fensters
 xlabel('Pixel'); %Horizontale Achse Beschriftung
 ylabel('Pixel'); %Vertikale Achse Beschriftung
 
-disp("MaximalwertDifferenzbild")
-max(max(imgdif))
+disp("MaximalwertDifferenzbild") %String Ausgabeauf die Konsole
+max(max(imgdif)) % Maximalwert auf die Konsole
 
 figure(4); %Ein neues Fenster öffnen
+title("Histogramm"); %Titel
 imhist(imgdif, 128); %Histogramm um Werte für Kontraststretching zu finden
+
 
 figure(5);  %Neues Fenster öffnen
 imKontrast = imadjust(imgdif, [0 65/255], [0 1]); %Kontrastwerte stretchen
 
-disp("MaximalwertStretchedDifferenzbild")
+disp("MaximalwertStretchedDifferenzbild") %Stringausgabe  Konsole
 max(max(imKontrast)) %Neuen Maximalwert  auf die  Konsole
 
 imshow(imKontrast); %Anzeigen des eingelesenen Bildes
