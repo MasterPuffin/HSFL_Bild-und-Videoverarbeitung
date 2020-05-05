@@ -1,3 +1,6 @@
+%Johannes Bluhm und Marleen Johannsen, 05.05.2020, Laboraufgabe 3, Version 1
+%1. Tresholding im HSV Raum
+
 clear; close all
 im = imread('OakBluffs.jpg');
 
