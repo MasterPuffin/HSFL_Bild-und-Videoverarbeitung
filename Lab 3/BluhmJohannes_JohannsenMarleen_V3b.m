@@ -1,13 +1,13 @@
-%Johannes Bluhm und Marleen Johannsen, 03.05.2020, Laboraufgabe 3, Version 1
+%Johannes Bluhm und Marleen Johannsen, 05.05.2020, Laboraufgabe 3, Version 1
 %2. Automatisches Thresholding
 
 clc; %Kommandofenster bereinigen
 clear; %Variablen bereinigen
-close all; %alles schließen
+close all; %alles schlieï¿½en
 
 img = imread('rice.png'); %Bild einlesen und speichern
 
-figure(1); %Ein neues Fenster öffnen
+figure(1); %Ein neues Fenster ï¿½ffnen
 subplot(1,3,1);
 imshow(img); %Anzeigen des eingelesenen Bildes
 axis on; %Achsen sichtbar machen
@@ -35,7 +35,7 @@ title('Angepasst'); %Titel des Fensters
 xlabel('Pixel'); %Horizontale Achse Beschriftung
 ylabel('Pixel'); %Vertikale Achse Beschriftung
 
-figure(2); %Fenster öffnen
+figure(2); %Fenster ï¿½ffnen
 subplot(3,1,1); %subplot
 imhist(img, 128); %Histogramm  ausgeben
 title("Histogramm Originalbild"); %Titel
