@@ -3,7 +3,7 @@
 
 clc; %Kommandofenster bereinigen
 clear; %Variablen bereinigen
-close all; %alles schlieöen
+close all; %alles schließen
 
 imgO = imread('circuit.tif'); %Bild einlesen und speichern
 
@@ -12,6 +12,7 @@ imshow(imgO); %Anzeigen des eingelesenen Bildes
 title('Originalbild'); %Titel des Fensters
 
 h = fspecial('sobel'); %Sobel-Kernel (horizontal) erstellen
+disp('Horizontaler Kernel');
 disp(h); %Kernel ausgeben
 
 imgH = imfilter(imgO, h); %Bild mit horizontalem Kernel filtern
@@ -21,6 +22,7 @@ imshow(imgH); %Anzeigen des gefilterten Bildes
 title('Horizontal gefiltert'); %Titel des Fensters
 
 h = h'; %Kernel nach links drehen
+disp('Vertikaler Kernel');
 disp(h); %Kernel ausgeben
 
 imgV = imfilter(imgO, h); %Bild mit vertikalem Kernel filtern
