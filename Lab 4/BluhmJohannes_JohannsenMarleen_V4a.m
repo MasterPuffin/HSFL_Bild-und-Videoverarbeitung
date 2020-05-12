@@ -45,7 +45,7 @@ title('Gefiltertes Bild mit Gauss'); %Titel des Fensters
 xlabel('Pixel'); %Horizontale Achse Beschriftung
 ylabel('Pixel'); %Vertikale Achse Beschriftung
 
-h = fspecial('unsharp'); %Schärfungsfilter definieren
+h = fspecial('unsharp') %Schärfungsfilter definieren und auf CW
 imFiltGS = imfilter(imFiltG, h); %Bild schärfen
 
 figure(5); %Ein neues Fenster ï¿½ffnen
