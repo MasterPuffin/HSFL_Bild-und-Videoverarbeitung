@@ -28,20 +28,28 @@ disp(h); %Kernel ausgeben
 imgV = imfilter(imgO, h); %Bild mit vertikalem Kernel filtern
 
 figure(3); %Ein neues Fenster öffnen
-imshow(imgV); %Anzeigen des eingelesenen Bildes
+imshow(imgV); %Anzeigen des vertikal-gefilterten Bildes
 title('Vertikal gefiltert'); %Titel des Fensters
 
-img = imbinarize(imgO, imgH); %Horizontalen Filter auf Originalbild anwenden
+%img = imbinarize(imgO, imgH); %Horizontalen Filter auf Originalbild anwenden
+%Wahrscheinlich eher so:
+thresholdO = graythresh(imgO);%Treshold automatisch bestimmen
+disp(thresholdO*255); %Tresholdschwelle als uint8 auf CW
+img = imbinarize(imgH, thresholdO);  %Mit TH in BW umwandeln
 
 figure(4); %Ein neues Fenster öffnen
 imshow(img); %Anzeigen des eingelesenen Bildes
 title('Originalbild horizontal gefiltert'); %Titel des Fensters
 
-img = imbinarize(imgO, imgV); %Vertikalen Filter auf Originalbild anwenden
+%img = imbinarize(imgO, imgV); %Vertikalen Filter auf Originalbild anwenden
+%Wahrscheinlich eher so:
+thresholdV = graythresh(imgV);%Treshold automatisch bestimmen
+disp(thresholdV*255);%Tresholdschwelle als uint8 auf CW
+img = imbinarize(imgV, thresholdV); %Mit TH in BW umwandeln
 
 figure(5); %Ein neues Fenster öffnen
 imshow(img); %Anzeigen des eingelesenen Bildes
 title('Originalbild vertikal gefiltert'); %Titel des Fensters
 
-disp(uint8(imgH)); %Horizontalen Threshold ausgeben
-disp(uint8(imgV)); %Vertikalen Threshold ausgeben
+%disp(uint8(imgH)); %Horizontalen Threshold ausgeben
+%disp(uint8(imgV)); %Vertikalen Threshold ausgeben

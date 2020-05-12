@@ -42,6 +42,8 @@ title('Bild nach Helligkeitsnivellierung'); %Titel des Fensters
 xlabel('Pixel'); %Horizontale Achse Beschriftung
 ylabel('Pixel'); %Vertikale Achse Beschriftung
 
+minWert= min(min(imgDifbr)) %Minimaler Wert des Bildes auf CW (ist 0)
+
 thresh = graythresh(imgDif); %automatische Thresholdschwelle bestimmen
 imgBW = imbinarize(imgDif, thresh); %mit dem Threshold in schwarzweiﬂ umwandeln
 
