@@ -36,7 +36,7 @@ rp = regionprops(imgFill, 'area', 'eccentricity', 'solidity', 'Perimeter', 'orie
 count = size(rp) %Länge des Arrays bestimmen 
 for i=1:count(1) %(forschleife durchlaufen)
     Area = rp(i).Area; %Wert an jeweiliger Stelle für Fläche speichern
-    if ( Area < 1000 ) % !kleine Objekte nicht betrachten!
+    if ( Area < 2000 ) % !kleine Objekte nicht betrachten!
         a(i) = 0; %Area löschen
         e(i) = 0; %Exzentrizität löschen
         s(i) = 0; %Solidität löschen
@@ -58,5 +58,21 @@ disp(sprintf('Solidity: %f', rp(maxInd).Solidity)); %Solidität
 disp(sprintf('Perimeter: %f', rp(maxInd).Perimeter)); %Umfang
 disp(sprintf('Orientation: %f', rp(maxInd).Orientation)); %Orientierung
 
-figure; plot(a, e, 'ro'); xlabel('Area'); ylabel('Eccentricity'); %2D Graph mit Area und Eccentricity
-figure; scatter3(a,e,s); xlabel('Area'); ylabel('Eccentricity'); zlabel('Solidity'); %3D Graph mit allen Features
+figure(2); plot(a, e, 'ro'); xlabel('Area'); ylabel('Eccentricity'); %2D Graph mit Area und Eccentricity
+figure(3); scatter3(a,e,s); xlabel('Area'); ylabel('Eccentricity'); zlabel('Solidity'); %3D Graph mit allen Features
+
+%Größtes Objekt
+imMask = zeros(size(imgFill)); %Neues leeres Bild erzeugen in der selbnen Größe
+imLabel = bwlabel(imgFill,8); %Label bestimmen, 8 Connectivity
+imMask = or (imMask, (imLabel == maxInd)); %Mit größtem Objekt verknüpfen
+figure(4); imshow(imMask, 'InitialMagnification','fit'); %Maske anzeigen
+xlabel('Pixel'); ylabel('Pixel'); title('Größtes Objekt'); %Beschriftungen
+
+%Konvexe Hülle
+figure(5);%Fenster 5 öffnen
+kh = bwconvhull(imMask); %Konvexe Hülle des Objektes bestimmen
+imshow(kh, 'InitialMagnification','fit'); %Konvexe Hülle anzeigen
+xlabel('Pixel'); ylabel('Pixel'); title('Konvexe Hülle des größten Objektes'); %Beschriftungen
+
+
+
