@@ -57,3 +57,12 @@ disp(sprintf('Eccentricity: %f', rp(maxInd).Eccentricity)); %Exzentrizität des E
 disp(sprintf('Solidity: %f', rp(maxInd).Solidity)); %Solidität
 disp(sprintf('Perimeter: %f', rp(maxInd).Perimeter)); %Umfang
 disp(sprintf('Orientation: %f', rp(maxInd).Orientation)); %Orientierung
+
+%my part
+
+% 2 D-Darstellung Area und Eccentricity -> Objekte sind schon
+% unterscheidbar
+figure; plot(a, e, 'ro'); xlabel('Area'); ylabel('Eccentricity');
+% 3 D-Darstellung aller Features
+figure; scatter3(a,e,s); xlabel('Area'); ylabel('Eccentricity');
+zlabel('Solidity');
