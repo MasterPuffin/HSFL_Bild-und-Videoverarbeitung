@@ -73,6 +73,3 @@ figure(5);%Fenster 5 öffnen
 kh = bwconvhull(imMask); %Konvexe Hülle des Objektes bestimmen
 imshow(kh, 'InitialMagnification','fit'); %Konvexe Hülle anzeigen
 xlabel('Pixel'); ylabel('Pixel'); title('Konvexe Hülle des größten Objektes'); %Beschriftungen
-
-
-
