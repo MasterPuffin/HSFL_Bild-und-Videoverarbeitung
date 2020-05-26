@@ -1,4 +1,4 @@
-%Johannes Bluhm und Marleen Johannsen, 18.05.2020, Laboraufgabe 5, Version 1
+%Johannes Bluhm und Marleen Johannsen, 25.05.2020, Laboraufgabe 5, Version 2
 %Innere Features
 
 clc; %Kommandofenster bereinigen
@@ -31,45 +31,50 @@ axis on; title('Vorbereitetes Bild'); %Titel und Achsen
 xlabel('Pixel'); ylabel('Pixel'); %Achsen Beschriftung
 
 %Regionprobs bestimmen
-rp = regionprops(imgFill, 'area', 'eccentricity', 'solidity', 'Perimeter', 'orientation');
+s = regionprops(imgFill, 'all');
 
-count = size(rp) %Länge des Arrays bestimmen 
+count = size(s) %Länge des Arrays bestimmen 
+
+sm = struct([]); %Neues leeres Structure Array
+a = zeros;b = zeros;c = zeros;
+counter = 1; %Counter für Zeilen
+
 for i=1:count(1) %(forschleife durchlaufen)
-    Area = rp(i).Area; %Wert an jeweiliger Stelle für Fläche speichern
-    if ( Area < 2000 ) % !kleine Objekte nicht betrachten!
-        a(i) = 0; %Area löschen
-        e(i) = 0; %Exzentrizität löschen
-        s(i) = 0; %Solidität löschen
-        ex(i)= 0; %Umfang löschen
-        o(i) = 0; %Rotation löschen
-    else
-        a(i) = rp(i).Area; %Fläche speichern
-        e(i) = rp(i).Eccentricity; %Exzentrizität speichern
-        s(i) = rp(i).Solidity; %Solidität speichern
-        ex(i)= rp(i).Perimeter; %Umfang speichern
-        o(i) = rp(i).Orientation; %Rotation speichern
+    Area = s(i).Area; %Wert an jeweiliger Stelle für Fläche speichern
+    if ( Area > 3000 ) % !kleine Objekte nicht betrachten!
+        sm(counter).Area = s(i).Area; %Wert für Area kopieren
+        a(counter) = s(i).Area; %Fläche für plot in einen Vektor schreiben
+        
+        sm(counter).ConvexArea = s(i).ConvexArea; %Wert für ConvexArea kopieren
+        b(counter) = sm(i).ConvexArea; %Konvexe Fläche für plot in einen Vektor schreiben
+        
+        sm(counter).Solidity = s(i).Solidity; %Wert für Solidität kopieren
+        c(counter) = rp(i).Solidity; %Solidität für plot in einen Vektor schreiben
+        
+        sm(counter).Perimeter = s(i).Perimeter; %Wert für Umfang kopieren
+        sm(counter).Orientation = rp(i).Orientation; %Wert für Ausrichtung kopieren
+        
+        counter= counter+1; %Counter erhöhen
     end
 end
-max = max(a) %Größtes Objekt finden
-maxInd = find(a == max) %Index im Array ermitteln
-disp(sprintf('Area: %f', rp(maxInd).Area)); %Größe des Elements
-disp(sprintf('Eccentricity: %f', rp(maxInd).Eccentricity)); %Exzentrizität des Elements
-disp(sprintf('Solidity: %f', rp(maxInd).Solidity)); %Solidität
-disp(sprintf('Perimeter: %f', rp(maxInd).Perimeter)); %Umfang
-disp(sprintf('Orientation: %f', rp(maxInd).Orientation)); %Orientierung
 
-figure(2); plot(a, e, 'ro'); xlabel('Area'); ylabel('Eccentricity'); %2D Graph mit Area und Eccentricity
-figure(3); scatter3(a,e,s); xlabel('Area'); ylabel('Eccentricity'); zlabel('Solidity'); %3D Graph mit allen Features
+[val,ind] = max([rp.Area]); %Größtes Objekt finden
+
+disp(sprintf('Area: %f', s(ind).Area)); %Größe des Elements
+disp(sprintf('ConvexArea: %f', s(ind).ConvexArea)); %Konvexe Fläche
+disp(sprintf('Solidity: %f', s(ind).Solidity)); %Solidität
+disp(sprintf('Perimeter: %f', s(ind).Perimeter)); %Umfang
+disp(sprintf('Orientation: %f', s(ind).Orientation)); %Orientierung
+
+ 
+figure(2); plot(a, b, 'ro'); xlabel('Area'); ylabel('ConvexArea'); %2D Graph mit Area und Eccentricity
+figure(3); scatter3(a,b,c); xlabel('Area'); ylabel('ConvexArea'); zlabel('Solidity'); %3D Graph mit allen Features
 
 %Größtes Objekt
-imMask = zeros(size(imgFill)); %Neues leeres Bild erzeugen in der selbnen Größe
-imLabel = bwlabel(imgFill,8); %Label bestimmen, 8 Connectivity
-imMask = or (imMask, (imLabel == maxInd)); %Mit größtem Objekt verknüpfen
-figure(4); imshow(imMask, 'InitialMagnification','fit'); %Maske anzeigen
+figure(4); imshow(s(ind).Image,'InitialMagnification','fit'); %
 xlabel('Pixel'); ylabel('Pixel'); title('Größtes Objekt'); %Beschriftungen
 
 %Konvexe Hülle
 figure(5);%Fenster 5 öffnen
-kh = bwconvhull(imMask); %Konvexe Hülle des Objektes bestimmen
-imshow(kh, 'InitialMagnification','fit'); %Konvexe Hülle anzeigen
+imshow(s(ind).ConvexImage, 'InitialMagnification','fit'); %Konvexe Hülle anzeigen
 xlabel('Pixel'); ylabel('Pixel'); title('Konvexe Hülle des größten Objektes'); %Beschriftungen
