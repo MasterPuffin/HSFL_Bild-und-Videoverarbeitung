@@ -71,7 +71,7 @@ figure(2); plot(a, b, 'ro'); xlabel('Area'); ylabel('ConvexArea'); %2D Graph mit
 figure(3); scatter3(a,b,c); xlabel('Area'); ylabel('ConvexArea'); zlabel('Solidity'); %3D Graph mit allen Features
 
 %Größtes Objekt
-figure(4); imshow(s(ind).Image,'InitialMagnification','fit'); %
+figure(4); imshow(s(ind).Image,'InitialMagnification','fit'); %Größtes Objekt anzeigen
 xlabel('Pixel'); ylabel('Pixel'); title('Größtes Objekt'); %Beschriftungen
 
 %Konvexe Hülle
