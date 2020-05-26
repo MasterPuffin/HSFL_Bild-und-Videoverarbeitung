@@ -46,19 +46,19 @@ for i=1:count(1) %(forschleife durchlaufen)
         a(counter) = s(i).Area; %Fläche für plot in einen Vektor schreiben
         
         sm(counter).ConvexArea = s(i).ConvexArea; %Wert für ConvexArea kopieren
-        b(counter) = sm(i).ConvexArea; %Konvexe Fläche für plot in einen Vektor schreiben
+        b(counter) = s(i).ConvexArea; %Konvexe Fläche für plot in einen Vektor schreiben
         
         sm(counter).Solidity = s(i).Solidity; %Wert für Solidität kopieren
-        c(counter) = rp(i).Solidity; %Solidität für plot in einen Vektor schreiben
+        c(counter) = s(i).Solidity; %Solidität für plot in einen Vektor schreiben
         
         sm(counter).Perimeter = s(i).Perimeter; %Wert für Umfang kopieren
-        sm(counter).Orientation = rp(i).Orientation; %Wert für Ausrichtung kopieren
+        sm(counter).Orientation = s(i).Orientation; %Wert für Ausrichtung kopieren
         
         counter= counter+1; %Counter erhöhen
     end
 end
 
-[val,ind] = max([rp.Area]); %Größtes Objekt finden
+[val,ind] = max([s.Area]); %Größtes Objekt finden
 
 disp(sprintf('Area: %f', s(ind).Area)); %Größe des Elements
 disp(sprintf('ConvexArea: %f', s(ind).ConvexArea)); %Konvexe Fläche
@@ -67,7 +67,7 @@ disp(sprintf('Perimeter: %f', s(ind).Perimeter)); %Umfang
 disp(sprintf('Orientation: %f', s(ind).Orientation)); %Orientierung
 
  
-figure(2); plot(a, b, 'ro'); xlabel('Area'); ylabel('ConvexArea'); %2D Graph mit Area und Eccentricity
+figure(2); plot(a, b, 'ro'); xlabel('Area'); ylabel('ConvexArea'); %2D Graph mit Area und ConvexArea
 figure(3); scatter3(a,b,c); xlabel('Area'); ylabel('ConvexArea'); zlabel('Solidity'); %3D Graph mit allen Features
 
 %Größtes Objekt
