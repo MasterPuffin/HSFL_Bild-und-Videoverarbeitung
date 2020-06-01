@@ -23,3 +23,13 @@ imgInv = ~imgBW; %Bild invertieren
 
 figure(3);
 imshow(imgInv);
+
+imLabel = bwlabel(imgInv,8);
+imshow(imLabel, []);
+
+imLabel = bwlabel(imgInv,8);
+imRgb = label2rgb(imLabel);
+figure; imshow(imRgb, 'InitialMagnification','fit');
+
+%blobMeasurements = regionprops(imLabel, imgBW, 'all');
+%numberOfBlobs = size(blobMeasurements, 1);
