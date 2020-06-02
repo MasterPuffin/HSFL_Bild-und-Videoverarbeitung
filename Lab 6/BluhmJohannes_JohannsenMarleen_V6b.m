@@ -58,19 +58,19 @@ s = regionprops(imgP, 'image', 'centroid'); %regionprops bestimmen
 count = size(s); %Größe für for-Schleife
 
 for i=1:count(1) %in forSchleife jedes Bild und Schwerpunkt speichern
-im = s(i).Image; %Bild speichern
-centroid = s(i).Centroid; % zum markieren
-polygon = funcGenPolyPic(im, N_abtast); %von jedem Bild den Polygonzug bestimmen
+    im = s(i).Image; %Bild speichern
+    centroid = s(i).Centroid; % zum markieren
+    polygon = funcGenPolyPic(im, N_abtast); %von jedem Bild den Polygonzug bestimmen
 
-FDVec = FuncInvarianteFourierDeskriptoren(1, 1, polygon, N_FD); %...und die Fourierdiskriptoren berechnen
-abstand(i) = sum( abs(refPoly - FDVec) ); %abstand zueinander berechnen
-% erkannte Objekte ins Originalbild eintragen
-if ( abstand(i) < 0.5 ) %wenn Abstand kleiner 0.5 dann...
-figure(6); plot(centroid(1), centroid(2), 'r*'); %F erkannt und Schwerpunkt einzeichnen
-disp("KoordinateX"); sprintf('%f',centroid(1))
-disp("KoordinateY"); sprintf('%f',centroid(2))
-figure(7); %neues Fenster
-bar(abs(abstand)); %Abtand zeigen
-end
+    FDVec = FuncInvarianteFourierDeskriptoren(1, 1, polygon, N_FD); %...und die Fourierdiskriptoren berechnen
+    abstand(i) = sum( abs(refPoly - FDVec) ); %abstand zueinander berechnen
+    % erkannte Objekte ins Originalbild eintragen
+    if ( abstand(i) < 0.5 ) %wenn Abstand kleiner 0.5 dann...
+        figure(6); plot(centroid(1), centroid(2), 'r*'); %F erkannt und Schwerpunkt einzeichnen
+        disp("KoordinateX"); sprintf('%f',centroid(1))
+        disp("KoordinateY"); sprintf('%f',centroid(2))
+        figure(7); %neues Fenster
+        bar(abs(abstand)); %Abtand zeigen
+    end
 end
 
