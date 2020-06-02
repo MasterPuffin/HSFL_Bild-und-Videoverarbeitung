@@ -70,7 +70,8 @@ for i=1:count(1) %in forSchleife jedes Bild und Schwerpunkt speichern
         disp("KoordinateX"); sprintf('%f',centroid(1))
         disp("KoordinateY"); sprintf('%f',centroid(2))
         figure(7); %neues Fenster
-        bar(abs(abstand)); %Abtand zeigen
+        bar(abs(abstand)); %Abstand zeigen
+        title("Abstand der Fourier-Diskriptoren der entsprechenden Objekte");
     end
 end
 
