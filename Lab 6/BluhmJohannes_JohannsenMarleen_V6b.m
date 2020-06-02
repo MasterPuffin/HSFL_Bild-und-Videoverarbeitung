@@ -9,9 +9,9 @@ close all; %alles schließen
 %% Bild einlesen
 
 img = double(imread('fl.jpg'))/255; %Bild einlesen und speichern als double
-figure(1);
+figure(1); %Fenster öffnen
 imshow(img, 'InitialMagnification','fit'); %Anzeigen des eingelesenen Bildes
-title("Eingelesenes Bild FL");
+title("Eingelesenes Bild FL"); %Titel
 disp("Bildgröße:"); disp(size(img)); %Größe ausgeben
 
 %% Thresholding
@@ -19,63 +19,58 @@ imgGr = rgb2gray(img); %In Graustufen umwandeln
 thresh = graythresh(img); %Automatisches Thresholding
 imgBW = imbinarize(imgGr, thresh); %Threshold
 
-figure(2);
-imshow(imgBW, 'InitialMagnification','fit');
-title("Schwarz-weiß Bild");
+figure(2); %Neues Fenster
+imshow(imgBW, 'InitialMagnification','fit'); %Anzeigen SW Bild
+title("Schwarz-weiß Bild"); %Titel
 
 %% F Ausschneiden
 imgInv = ~imgBW; %Invertieren
-imLabel = bwlabel(imgInv, 8);
-imgF = zeros(size(imgInv));
-imgF = or (imgF, (imLabel==2));
-imgF = imfill(imgF, 'holes');
-figure(3);
-imshow(imgF, 'InitialMagnification','fit');
-title("Ausgeschnittenes F");
+imLabel = bwlabel(imgInv, 8); %Labeln
+imgF = zeros(size(imgInv)); %Neues Bild
+imgF = or (imgF, (imLabel==2)); %Verknüpfen mit Region 2 (=F)
+figure(3); %neues fenster
+imshow(imgF, 'InitialMagnification','fit'); %Anzeigen des F
+title("Ausgeschnittenes F");%titel
 
 
 %% Referenz Fourier Diskrriptoren berechnen
 N_abtast = 32;
 N_FD = 80; %Anzahl FD
 
-Poly=funcGenPolyPic(imgF, N_abtast);
-refPoly=FuncInvarianteFourierDeskriptoren(1, 1, Poly, N_FD);
+Poly=funcGenPolyPic(imgF, N_abtast);%Polygonzug berechnen
+refPoly=FuncInvarianteFourierDeskriptoren(1, 1, Poly, N_FD); %referenzpolygon FD berechnen
 
-figure(4);
-plot(real(Poly),imag(Poly), 'b*-');
-title("Polygonzug F");
+figure(4);%Fenster öffnen
+plot(real(Poly),imag(Poly), 'b*-');%Referenzpolygonzug zeigen
+title("Polygonzug F"); %Titel
 
-figure(5);
-bar(abs(refPoly));
-title("Spektrum F");
+figure(5); %Fenster öffnen
+bar(abs(refPoly));%Spektrum anzeigen
+title("Spektrum F");%titel
+
 %% Vorverarbeites Bild laden
-imgP =imbinarize(imread('Parkplatz_vorverarbeitet.jpg')); %Bild einlesen und speichern als double
-figure(6);
-imshow(imgP, 'InitialMagnification','fit'); hold on;
+imgP =imbinarize(imread('Parkplatz_vorverarbeitet.jpg')); %Bild einlesen und speichern und in SW umwandeln
+figure(6); imshow(imgP, 'InitialMagnification','fit'); hold on; %Bild anzeigen für später und Fenster offen halten
 
 %% F erkennen
 
-s = regionprops(imgP, 'image', 'centroid');
-count = size(s);
+s = regionprops(imgP, 'image', 'centroid'); %regionprops bestimmen
+count = size(s); %Größe für for-Schleife
 
-imgPrgb = bwlabel(imgP, 8);
-imgRGB = label2rgb(imgPrgb);
-figure; imshow(imgRGB);
-
-for i=1:count(1)
-im = s(i).Image;
+for i=1:count(1) %in forSchleife jedes Bild und Schwerpunkt speichern
+im = s(i).Image; %Bild speichern
 centroid = s(i).Centroid; % zum markieren
-polygon = funcGenPolyPic(im, N_abtast);
+polygon = funcGenPolyPic(im, N_abtast); %von jedem Bild den Polygonzug bestimmen
 
-FDVec = FuncInvarianteFourierDeskriptoren(1, 1, polygon, N_FD);
-% Abstandsmass des aktuellen Objektes zum Muster berechnen
-abstand(i) = sum( abs(refPoly - FDVec) );
+FDVec = FuncInvarianteFourierDeskriptoren(1, 1, polygon, N_FD); %...und die Fourierdiskriptoren berechnen
+abstand(i) = sum( abs(refPoly - FDVec) ); %abstand zueinander berechnen
 % erkannte Objekte ins Originalbild eintragen
-if ( abstand(i) < 0.5 )
-figure(6); plot(centroid(1), centroid(2), 'r*');
+if ( abstand(i) < 0.5 ) %wenn Abstand kleiner 0.5 dann...
+figure(6); plot(centroid(1), centroid(2), 'r*'); %F erkannt und Schwerpunkt einzeichnen
+disp("KoordinateX"); sprintf('%f',centroid(1))
+disp("KoordinateY"); sprintf('%f',centroid(2))
+figure(7); %neues Fenster
+bar(abs(abstand)); %Abtand zeigen
 end
 end
 
-% Er erkennt die F's niocht gut, weil das F nicht als einzelne Region
-% eerkannt wird, sondern zusammen mit dem "L". Muss bei der Vorverarbeitung
-% besser geearbeitet werden...?
