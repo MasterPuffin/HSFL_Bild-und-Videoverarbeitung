@@ -1,2 +1,0 @@
-# Bild- und Videoverarbeitung
- 
